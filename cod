@@ -1,0 +1,15 @@
+import websockets
+import asyncio
+import json
+
+
+async def main():   
+    url = f"wss://stream.binance.com:9443/stream?streams=btcusdt@miniTicker"
+    async with websockets.connect(url) as client:
+        while True:            
+            data = json.loads(await client.recv())["data"]           
+            
+
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
